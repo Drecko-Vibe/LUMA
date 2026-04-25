@@ -1,0 +1,470 @@
+:root {
+  --luma-primary: #FF6B00;
+  --luma-primary-hover: #e66000;
+  --luma-glow: rgba(255, 107, 0, 0.4);
+}
+
+/* =========================================================
+   3. PAINEL PRINCIPAL (Modal Flutuante W)
+========================================================= */
+#luma-panel-container {
+  position: fixed; z-index: 999998; width: 360px;
+  background: rgba(28, 30, 35, 0.85); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5); display: none;
+  flex-direction: column; font-family: 'Segoe UI', sans-serif; color: #F0F2F5; overflow: hidden;
+}
+
+.luma-panel-header {
+  background: rgba(255, 107, 0, 0.9); padding: 12px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: grab; user-select: none;
+}
+.luma-panel-header:active { cursor: grabbing; }
+.luma-header-actions { display: flex; gap: 12px; }
+.luma-icon-btn { background: none; border: none; color: white; cursor: pointer; font-size: 18px; font-weight: bold; opacity: 0.8; transition: 0.2s; }
+.luma-icon-btn:hover { opacity: 1; transform: scale(1.2); }
+
+.luma-panel-content { padding: 20px; flex: 1; overflow-y: auto; }
+.luma-group { margin-bottom: 16px; }
+.luma-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.luma-sublabel { font-size: 11px; color: #9BA1A6; margin-bottom: 8px; display: block; }
+
+.luma-textarea {
+  width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; color: white; padding: 10px; font-size: 13px; resize: none; box-sizing: border-box;
+}
+
+.luma-segmented { display: flex; align-items: center; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 4px; gap: 4px; height: 38px; }
+.luma-segmented label { flex: 1; margin: 0 !important; display: flex; height: 100%; cursor: pointer; }
+.luma-segmented input { display: none; }
+.luma-segmented span { flex: 1; text-align: center; border-radius: 6px; font-size: 13px; color: #9BA1A6; display: flex; align-items: center; justify-content: center; }
+.luma-segmented input:checked + span { background: var(--luma-primary); color: white; font-weight: bold; }
+
+.luma-checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; margin: 0 !important; }
+.luma-checkbox-label input { display: none; }
+.luma-checkmark { width: 18px; height: 18px; border-radius: 5px; border: 2px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.luma-checkbox-label input:checked + .luma-checkmark { background: var(--luma-primary); border-color: var(--luma-primary); }
+.luma-checkbox-label input:checked + .luma-checkmark::after { content: '✓'; color: white; font-size: 12px; }
+
+.luma-select { 
+  appearance: none; width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
+  color: white; padding: 12px; border-radius: 8px; font-size: 13px; cursor: pointer;
+}
+
+.luma-row-paginas { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; height: 38px; }
+.luma-page-selectors.luma-hidden { display: none !important; }
+.luma-select-mini { width: 65px !important; padding: 4px 10px !important; height: 28px !important; }
+.luma-btn-primary { width: 100%; background: var(--luma-primary); border: none; color: white; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 12px; }
+.luma-btn-secondary { background: rgba(255,255,255,0.1); }
+.luma-btn-danger { background: rgba(235, 87, 87, 0.1); border: 1px solid rgba(235, 87, 87, 0.3); color: #EB5757; }
+.luma-btn-primary:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background: #4A4D51 !important; 
+}
+
+.luma-btn-exportar { 
+  margin-top: -14px !important; 
+}
+
+#luma-minimized-bar {
+  position: fixed; z-index: 999999; background: var(--luma-primary); color: white;
+  padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; align-items: center; gap: 8px;
+}
+
+#luma-mini-modal {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+  width: 90%; background: #23272A; border-radius: 16px; padding: 16px; opacity: 0; pointer-events: none; transition: 0.2s;
+}
+#luma-mini-modal.luma-show { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+.luma-modal-footer { display: flex; gap: 10px; margin-top: 12px; }
+
+
+/* =========================================================
+   LINHA DO FILTRO
+========================================================= */
+.luma-row-filtro { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.luma-btn-outline { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+.luma-btn-outline:hover { background: rgba(255,255,255,0.1); }
+.luma-switch-wrapper { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9BA1A6; }
+#luma-status-filtro { min-width: 55px; text-align: right; transition: color 0.2s; } 
+.luma-switch { position: relative; display: inline-block; width: 36px; height: 20px; }
+.luma-switch input { opacity: 0; width: 0; height: 0; }
+.luma-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #4A4D51; transition: .3s; border-radius: 20px; }
+.luma-slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+.luma-switch input:checked + .luma-slider { background-color: var(--luma-primary); }
+.luma-switch input:checked + .luma-slider:before { transform: translateX(16px); }
+
+/* =========================================================
+   NOVOS COMPONENTES: RADIOS E CHECKBOXES
+========================================================= */
+.luma-segmented { 
+  display: flex; 
+  align-items: center; 
+  background: rgba(0,0,0,0.3); 
+  border-radius: 8px; 
+  padding: 4px; 
+  gap: 4px;
+  height: 38px;
+}
+
+.luma-segmented label { 
+  flex: 1; 
+  margin: 0 !important;
+  display: flex; 
+  height: 100%;
+  cursor: pointer; 
+}
+
+.luma-segmented input { display: none; }
+
+.luma-segmented span { 
+  flex: 1; 
+  text-align: center; 
+  border-radius: 6px; 
+  font-size: 13px; 
+  color: #9BA1A6; 
+  transition: all 0.2s; 
+  font-weight: 500; 
+  line-height: 1; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.luma-segmented input:checked + span { 
+  background: var(--luma-primary); 
+  color: white; 
+  font-weight: bold; 
+  box-shadow: 0 2px 8px rgba(255,107,0,0.4); 
+}
+
+.luma-checkbox-label { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  cursor: pointer; 
+  font-size: 13px; 
+  color: #E8EAED; 
+  user-select: none; 
+  margin: 0 !important;
+}
+
+.luma-checkbox-label input { display: none; }
+
+.luma-checkmark { 
+  width: 18px; 
+  height: 18px; 
+  border-radius: 5px; 
+  border: 2px solid rgba(255,255,255,0.2); 
+  transition: all 0.2s ease; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: rgba(255,255,255,0.05);
+}
+
+.luma-checkbox-label input:checked + .luma-checkmark { 
+  background: var(--luma-primary); 
+  border-color: var(--luma-primary); 
+}
+
+.luma-checkbox-label input:checked + .luma-checkmark::after { 
+  content: '✓'; 
+  color: white; 
+  font-size: 12px; 
+  font-weight: bold; 
+}
+
+/* =========================================================
+   SELETORES 
+========================================================= */
+.luma-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.luma-select { 
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%; 
+  background-color: rgba(0,0,0,0.2); 
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 10px auto;
+  border: 1px solid rgba(255,255,255,0.1); 
+  color: white; 
+  padding: 12px 30px 12px 14px; 
+  border-radius: 8px; 
+  font-size: 13px; 
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.luma-select:hover { background-color: rgba(0,0,0,0.3); border-color: rgba(255,107,0,0.4); }
+.luma-select:focus { border-color: var(--luma-primary); box-shadow: 0 0 0 2px rgba(255,107,0,0.2); }
+.luma-select option { background-color: #23272A; color: white; padding: 10px;}
+
+/* =========================================================
+   BOTÕES E MINI-MODAL 
+========================================================= */
+.luma-btn-primary { 
+  width: 100%; background: var(--luma-primary); border: none; color: white; 
+  padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; 
+  margin-bottom: 12px; transition: 0.2s;
+}
+
+.luma-btn-secondary { 
+  background: #4A4D51 !important; 
+  color: #FFFFFF !important;
+}
+.luma-btn-secondary:hover { background: #5a5e63 !important; }
+
+.luma-btn-danger { 
+  background: #C53030 !important; 
+  color: #FFFFFF !important;
+  border: none !important;
+}
+.luma-btn-danger:hover { background: #E53E3E !important; }
+
+.luma-btn-exportar { 
+  margin-top: -18px !important; 
+}
+
+/* =========================================================
+   BARRA MINIMIZADA 
+========================================================= */
+#luma-minimized-bar {
+  position: fixed; z-index: 999999; background: var(--luma-primary); color: white;
+  padding: 8px 16px; border-radius: 10px; cursor: grab; 
+  font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+  display: none; align-items: center; gap: 8px; user-select: none;
+}
+#luma-minimized-bar:active { cursor: grabbing; }
+
+/* =========================================================
+   SELETORES MINI
+========================================================= */
+.luma-row-paginas { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  margin-bottom: 16px; 
+  height: 38px; 
+}
+
+.luma-page-selectors { 
+  display: flex; 
+  align-items: center; 
+  gap: 6px; 
+}
+
+.luma-page-selectors.luma-hidden { 
+  display: none !important; 
+}
+
+.luma-page-selectors span {
+  font-size: 12px;
+  color: #9BA1A6;
+}
+
+select.luma-select-mini { 
+  width: 65px !important; 
+  min-width: unset !important;
+  padding: 4px 20px 4px 10px !important; 
+  font-size: 12px !important; 
+  height: 28px !important;
+  margin: 0 !important;
+  background-position: right 6px top 50% !important; 
+  background-size: 8px auto !important; 
+}
+
+/* =========================================================
+   BARRA DE PROGRESSO
+========================================================= */
+.luma-progress-group {
+  margin-top: -4px; 
+  margin-bottom: 16px;
+}
+
+.luma-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9BA1A6;
+  margin-bottom: 6px;
+  font-family: sans-serif;
+}
+
+.luma-progress-labels b {
+  color: #F0F2F5;
+}
+
+.luma-progress-bg {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.luma-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--luma-primary);
+  box-shadow: 0 0 8px rgba(255, 107, 0, 0.6);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================================
+   BARRA DE PROGRESSO E AJUSTES DE FLUXO
+========================================================= */
+.luma-progress-group {
+  margin-top: 8px;
+  padding-bottom: 4px;
+}
+
+.luma-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #9BA1A6;
+  margin-bottom: 6px;
+}
+
+.luma-progress-labels b { color: #F0F2F5; }
+
+.luma-progress-bg {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.luma-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--luma-primary);
+  box-shadow: 0 0 8px rgba(255, 107, 0, 0.6);
+  transition: width 0.4s ease;
+}
+
+#luma-check-baixar + .luma-checkmark {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.luma-btn-exportar { 
+  margin-top: -10px !important; 
+  margin-bottom: 8px !important;
+}
+
+/* =========================================================
+   TEMA TAGSENSE E CAIXA DE INFORMAÇÃO
+========================================================= */
+#luma-tagsense-container {
+  --luma-primary: #8B5CF6;
+  --luma-primary-hover: #7C3AED;
+  --luma-glow: rgba(139, 92, 246, 0.4);
+  position: fixed; z-index: 999998; width: 360px;
+  background: rgba(28, 30, 35, 0.85); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5); display: none;
+  flex-direction: column; font-family: 'Segoe UI', sans-serif; color: #F0F2F5; overflow: hidden;
+}
+
+#tag-minimized-bar {
+  position: fixed; z-index: 999999; background: #8B5CF6; color: white;
+  padding: 8px 16px; border-radius: 10px; cursor: grab; font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; align-items: center; gap: 8px;
+}
+
+.luma-info-box {
+  background: rgba(255,255,255,0.05); border-left: 3px solid var(--luma-primary);
+  padding: 10px; border-radius: 0 8px 8px 0; font-size: 11px; color: #9BA1A6;
+  margin-top: 12px; line-height: 1.4;
+}
+
+/* =========================================================
+  CORES TAGSENSE
+========================================================= */
+#luma-tagsense-container .luma-panel-header {
+  background: var(--luma-primary) !important;
+}
+
+#luma-tagsense-container .luma-progress-fill {
+  box-shadow: 0 0 8px var(--luma-glow) !important;
+}
+
+#luma-tagsense-container .luma-segmented input:checked + span {
+  box-shadow: 0 2px 8px var(--luma-glow) !important;
+}
+
+#luma-tagsense-container .luma-select:focus,
+#luma-tagsense-container .luma-textarea:focus {
+  border-color: var(--luma-primary) !important;
+  box-shadow: 0 0 0 2px var(--luma-glow) !important;
+}
+
+/* =========================================================
+   ANIMAÇÃO DE ELEMENTOS
+========================================================= */
+@keyframes lumaFadeInDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.luma-fade-anim:not(.luma-hidden) {
+  animation: lumaFadeInDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* =========================================================
+    OCULTAÇÃO
+========================================================= */
+.luma-hidden {
+  display: none !important;
+}
+.luma-btn-primary.luma-estado-varrendo:disabled {
+  background: #63686D !important;
+  color: #E8EAED !important;
+  opacity: 0.85 !important;
+  cursor: wait !important;
+}
+
+/* =========================================================
+   INPUT CUSTOMIZADO
+========================================================= */
+#luma-qtd-custom { display: flex; gap: 8px; width: 100%; }
+#luma-qtd-input { 
+  flex: 1; height: 38px; background: rgba(0,0,0,0.2); 
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; 
+  color: white; padding: 0 12px; font-size: 13px; outline: none;
+}
+#luma-qtd-input:focus { border-color: var(--luma-primary); box-shadow: 0 0 0 2px rgba(255,107,0,0.2); }
+#luma-btn-voltar-qtd { 
+  width: 38px; height: 38px; display: flex; align-items: center; 
+  justify-content: center; font-size: 16px; padding: 0; 
+}
+
+/* =========================================================
+   ANIMAÇÃO DE CARREGAMENTO (SPINNER)
+========================================================= */
+.luma-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 107, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: #FF6B00;
+  animation: luma-spin 1s ease-in-out infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes luma-spin {
+  to { transform: rotate(360deg); }
+}
+
+.luma-info-box.luma-box-loading {
+  border-left-color: #FF6B00;
+  background: rgba(255, 107, 0, 0.08);
+  color: #FFF;
+}
