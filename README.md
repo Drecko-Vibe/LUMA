@@ -20,4 +20,4 @@ O **LUMA 2.0** é uma extensão de alta performance para Google Chrome, desenvol
 Este projeto foi desenvolvido utilizando metodologias de **Vibe Coding**, onde a lógica de programação sólida se une à aceleração por Inteligência Artificial para criar soluções complexas de forma ágil e iterativa.
 
 ---
-*Desenvolvido por **Drecko** como parte do portfólio de Análise e Desenvolvimento de Sistemas.*
+*Desenvolvido por **Drecko***
