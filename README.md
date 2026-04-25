@@ -1,3 +1,7 @@
+![Versão](https://img.shields.io/badge/version-1.9.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange.svg)
+
 # LUMA 2.0 - W Command Center
 
 O **LUMA 2.0** é uma extensão de alta performance para Google Chrome, desenvolvida para transformar a experiência de suporte e análise de dados dentro do ecossistema Clinicorp. Focada em **hiper-produtividade**, a ferramenta injeta uma interface inteligente (UI) e motores de automação diretamente no navegador.
